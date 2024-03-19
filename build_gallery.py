@@ -149,5 +149,7 @@ htmls.append(generate_image_html(image_count))
 
 htmls.append(IMAGE_WRAPPER_END)
 
+htmls.append(HTML_END)
+
 with open(os.path.join(target_folder, 'index.html'), '+w') as f:
   f.writelines(htmls)
