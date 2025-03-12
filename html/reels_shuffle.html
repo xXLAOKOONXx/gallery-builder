@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>GALLERY</title>
+</head>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background-image: url('assets/backgrounds/img_1.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    min-width: 300px;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 3em;
+    color: rgba(255, 255, 255, 0.8);
+    text-shadow: 2px 2px 4px #000000;
+    backdrop-filter: blur(5px);
+  }
+
+  .reels-container {
+    height: 100vh;
+    width: 100vw;
+    overflow: auto;
+    display: flex;
+    gap: 2em;
+    flex-direction: column;
+    scroll-snap-type: y mandatory;
+  }
+
+  .reels-container::-webkit-scrollbar {
+    width: 0;
+  }
+
+  .reel {
+      height: 100vh;
+      width: 100vw;
+      scroll-snap-align: start;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+  .reel img {
+    max-height: 100vh;
+    max-width: 100vw;
+    object-fit: cover;
+  }
+
+  .reel video {
+    max-height: 100vh;
+    max-width: 100vw;
+    object-fit: cover;
+  }
+
+  .reel div {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  div.img-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+  }
+
+  div.img-list .img-wrapper {
+    margin: 10px;
+    position: relative;
+    max-height: 1080px;
+    box-shadow: 2px 2px 6px 0px #000000;
+    opacity: 0.8;
+    transition: all 1s, z-index 0s;
+    backdrop-filter: blur(5px);
+    z-index: 0;
+
+    @media (max-width: 600px) {
+      max-height: 100px;
+    }
+
+    @media (max-width: 1200px) {
+      max-height: 200px;
+    }
+
+    @media (max-width: 1920px) {
+      max-height: 400px;
+    }
+
+    &:hover {
+      opacity: 1;
+      transform: scale(1.1);
+      box-shadow: 4px 4px 12px 0px #000000;
+      z-index: 1;
+    }
+  }
+</style>
+
+<body>
+
+  <div style="display: flex; justify-content: center;">
+    <div class="reels-container">
+      <div class="reel">
+        <div>
+          <h1>REELS</h1>
+          <p>Click once to enable autoplay of videos.</p>
+          <p>Scroll down for new things.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    const handleVideoPlayback = (video) => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            video.play();
+          } else {
+            video.pause();
+          }
+        });
+      }, { threshold: 0.5 });
+
+      observer.observe(video);
+    };
+    fetch('./assets/data/media.json')
+      .then(response => response.json())
+      .then(data => {
+        const reelsContainer = document.querySelector('.reels-container');
+        data.medias = data.medias.sort(() => Math.random() - 0.5);
+        data.medias.forEach(media => {
+          const reel = document.createElement('div');
+          reel.classList.add('reel');
+          const reelContent = document.createElement('div');
+          reel.appendChild(reelContent);
+          if (media.type === 'image') {
+            const img = document.createElement('img');
+            img.src = media.src;
+            img.loading = 'lazy';
+            reelContent.appendChild(img);
+          } else if (media.type === 'video') {
+            const video = document.createElement('video');
+            video.src = media.src;
+            video.autoplay = true;
+            video.controls = true;
+            video.preload = "none";
+            video.loop = true;
+            handleVideoPlayback(video);
+            reelContent.appendChild(video);
+          }
+          reelsContainer.appendChild(reel);
+        });
+      })
+      .catch(error => console.error('Error loading media:', error));
+
+  </script>
+</body>
+
+</html>
