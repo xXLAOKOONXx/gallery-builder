@@ -35,6 +35,19 @@ Due to the javascript used to fetch the media, you need to run the website as se
 
 Currently the ordering of files is kind of stupid, if you want to modify the resulted order, you can do so within the folder `website/assets/data/media.json`
 
+### File recommendations
+
+In the web it is always nicer to have small and easy to stream files. So let me suggest file types. This is highly opinionated, so take it with a grain of salt.
+
+Images:
+
+- jpg
+
+Videos:
+
+- mp4
+- webm
+
 ## Features
 
 ### Gallery Pages
@@ -53,3 +66,16 @@ All Images and Videos get listed in a feed similar to YouTube shorts, TikTok or 
 For videos to autoplay you need to click on the screen once so that your browser allows autoplay.
 
 The sorted page uses the order from `website/assets/data/media.json`, the shuffled page shuffles the order on page load or refresh.
+
+## Contribution
+
+Your contribution is welcome!
+
+If you like this project, leave a star :star:
+
+In case you got some Feature or Bug feel free to open an issue.  
+The more information you can give on what you want and why you want it or how to use it, the better!  
+You can also already try to formulate a User Story.  
+If you already have an idea on how to implement the changes, start forking the repository, implement your changes and create a pull request.
+
+Each feature that is part of this project gets at least one UserStory in [docs/User Stories](./docs/User%20Stories/). So if you have a new idea or want to implement something, take a look in there. Nothing is set in stone though.
