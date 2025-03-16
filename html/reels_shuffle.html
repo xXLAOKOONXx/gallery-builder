@@ -21,7 +21,10 @@
             <p>Click once to enable autoplay of videos.</p>
             <p>Scroll down for new things.</p>
             <button id="muteButton" class="btn">Mute</button>
-            <button id="hideImagesButton" class="btn">Hide Images</button>
+            <div class="row">
+              <button id="hideImagesButton" class="btn">Hide Images</button>
+              <button id="hideVideosButton" class="btn">Hide Videos</button>
+            </div>
             <div class="row">              
               <button id="autoScrollButton" class="btn">Scroll every </button>
               <input type="number" id="scrollIntervalInput" step="0.1" min="0.1" value="30" style="width: 60px; margin: 4px;">
@@ -97,6 +100,18 @@
       reels.forEach(reel => {
         const div = reel.querySelector('div');
         if (div && div.querySelector('img')) {
+          reel.style.display = 'none';
+        }
+      });
+    });
+
+    const hideVideosButton = document.getElementById('hideVideosButton');
+    hideVideosButton.addEventListener('click', () => {  
+      const reels = document.querySelectorAll('.reel');
+
+      reels.forEach(reel => {
+        const div = reel.querySelector('div');
+        if (div && div.querySelector('video')) {
           reel.style.display = 'none';
         }
       });
