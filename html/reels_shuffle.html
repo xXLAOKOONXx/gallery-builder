@@ -15,13 +15,18 @@
   <div style="display: flex; justify-content: center;">
     <div class="reels-container">
       <div class="reel">
-        <div>
+        <div class="reel-content column">
           <h1>REELS</h1>
-          <div class="box">
+          <div class="box column">
             <p>Click once to enable autoplay of videos.</p>
             <p>Scroll down for new things.</p>
             <button id="muteButton" class="btn">Mute</button>
             <button id="hideImagesButton" class="btn">Hide Images</button>
+            <div class="row">              
+              <button id="autoScrollButton" class="btn">Scroll every </button>
+              <input type="number" id="scrollIntervalInput" step="0.1" min="0.1" value="30" style="width: 60px; margin: 4px;">
+              <span class="vertical-center" style="margin-left: 5px;">seconds</span>
+            </div>
           </div>
         </div>
       </div>
@@ -52,6 +57,8 @@
           const reel = document.createElement('div');
           reel.classList.add('reel');
           const reelContent = document.createElement('div');
+          reelContent.classList.add('reel-content');
+          reelContent.classList.add('column');
           reel.appendChild(reelContent);
           if (media.type === 'image') {
             const img = document.createElement('img');
@@ -92,6 +99,22 @@
         if (div && div.querySelector('img')) {
           reel.style.display = 'none';
         }
+      });
+    });
+
+    const autoScrollButton = document.getElementById('autoScrollButton');
+    const scrollIntervalInput = document.getElementById('scrollIntervalInput');
+    autoScrollButton.addEventListener('click', () => {
+      const reelsContainer = document.querySelector('.reels-container');
+      setInterval(() => {
+      reelsContainer.scrollBy({
+        top: 1,
+        behavior: 'smooth'
+      });
+      }, scrollIntervalInput.value * 1000);
+      reelsContainer.scrollBy({
+        top: 1,
+        behavior: 'smooth'
       });
     });
   </script>
